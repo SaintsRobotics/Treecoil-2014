@@ -28,13 +28,11 @@ public final class XboxAxis {
     }
     
     public boolean equals(Object obj) {
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
         
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
         
         final XboxAxis other = (XboxAxis) obj;
         return this.value == other.value;

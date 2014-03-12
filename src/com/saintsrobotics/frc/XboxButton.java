@@ -2,9 +2,11 @@ package com.saintsrobotics.frc;
 
 /**
  * A type-safe enum for the Xbox buttons.
+ *
  * @author Saints Robotics
  */
 public final class XboxButton {
+
     public final int value;
     
     protected static final int A_VAL = 1;
@@ -35,20 +37,18 @@ public final class XboxButton {
     
     public int hashCode() {
         int hash = 3;
-        hash = 89 * hash + this.value;
+        hash = 89*hash+this.value;
         return hash;
     }
     
     public boolean equals(Object obj) {
-        if (obj == null) {
+        if (obj==null)
             return false;
-        }
         
-        if (getClass() != obj.getClass()) {
+        if (getClass()!=obj.getClass())
             return false;
-        }
         
         final XboxButton other = (XboxButton) obj;
-        return this.value == other.value;
+        return this.value==other.value;
     }
 }
