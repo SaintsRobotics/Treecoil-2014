@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Saints%20Robotics/Documents/NetBeansProjects/FRC2014-AerialAssist/src/com/saintsrobotics/frc/JoystickControl.java</file>
-            <file>file:/C:/Users/Saints%20Robotics/Documents/NetBeansProjects/FRC2014-AerialAssist/src/com/saintsrobotics/frc/Pickup.java</file>
-            <file>file:/C:/Users/Saints%20Robotics/Documents/NetBeansProjects/FRC2014-AerialAssist/src/com/saintsrobotics/frc/IRobotComponent.java</file>
-            <file>file:/C:/Users/Saints%20Robotics/Documents/NetBeansProjects/FRC2014-AerialAssist/src/com/saintsrobotics/frc/XboxButton.java</file>
-            <file>file:/C:/Users/Saints%20Robotics/Documents/NetBeansProjects/FRC2014-AerialAssist/src/com/saintsrobotics/frc/Shooter.java</file>
-            <file>file:/C:/Users/Saints%20Robotics/Documents/NetBeansProjects/FRC2014-AerialAssist/src/com/saintsrobotics/frc/Drive.java</file>
-            <file>file:/C:/Users/Saints%20Robotics/Documents/NetBeansProjects/FRC2014-AerialAssist/src/com/saintsrobotics/frc/XboxAxis.java</file>
-            <file>file:/C:/Users/Saints%20Robotics/Documents/NetBeansProjects/FRC2014-AerialAssist/src/com/saintsrobotics/frc/Robot.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
