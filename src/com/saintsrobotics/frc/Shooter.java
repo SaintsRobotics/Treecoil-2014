@@ -2,7 +2,6 @@ package com.saintsrobotics.frc;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -25,7 +24,6 @@ public class Shooter implements RobotComponent {
     
     private boolean lastSwitched;
     private int cycleCounts;
-    private double lastShotCount;
     private boolean autoShoot;
     private int shootMode;
     
@@ -41,7 +39,6 @@ public class Shooter implements RobotComponent {
     
     public void robotDisable() {
         cycleCounts = 0;
-        lastShotCount = 0;
     }
     
     public void robotEnable() {
@@ -53,19 +50,18 @@ public class Shooter implements RobotComponent {
     public void robotAuton() {
         if (cycleCounts>=120&&cycleCounts<=130) {
             autoShoot = true;
-            lastShotCount = Timer.getFPGATimestamp();
         } else if (cycleCounts>130) {
             autoShoot = false;
         }
         
         cycleCounts++;
         
-        if (!shooterSwitch.get()&&!lastSwitched) {
+        if (!shooterSwitch.get() && !lastSwitched) {
             WINCH.set(Relay.Value.kOff);
-            // LightShow.SetShootStandby();
+            LightShow.setShootStandby();
         } else if (autoShoot) {
             WINCH.set(Relay.Value.kOn);
-            // LightShow.SetShoot();
+            LightShow.setShoot();
         }
         
         lastSwitched = !shooterSwitch.get();
@@ -81,11 +77,10 @@ public class Shooter implements RobotComponent {
             shootMode = STOP_MODE;
         
         if (shootMode==RESET_MODE) {
-            if (!shooterSwitch.get()&&!lastSwitched) {
+            if (!shooterSwitch.get() && !lastSwitched) {
                 WINCH.set(Relay.Value.kOff);
             } else if (controller.getWinchButton()) {
                 WINCH.set(Relay.Value.kOn);
-                lastShotCount = Timer.getFPGATimestamp();
             }
             
             lastSwitched = !shooterSwitch.get();

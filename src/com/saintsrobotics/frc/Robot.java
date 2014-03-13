@@ -18,14 +18,16 @@ import java.io.IOException;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
+    
     private JoystickControl controlSystem;
     private Drive drive;
     private Shooter shooter;
     private Pickup pickup;
-
+    
+    private NetworkTable networkTable;
+    
     private RobotComponent[] components;
-
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -38,12 +40,12 @@ public class Robot extends IterativeRobot {
         
         components = new RobotComponent[]{controlSystem,drive,shooter,pickup};
     }
-
+    
     /**
      * This function is called at the beginning of autonomous.
      */
     public void autonomousInit() {
-        LightShow.setDefault();
+        LightShow.setAuton();
         Logger.log("Autonomous has begun!");
         enabledRoutine();
     }
@@ -59,7 +61,7 @@ public class Robot extends IterativeRobot {
      * This function is called at the beginning of operator control.
      */
     public void teleopInit() {
-        LightShow.setDefault();
+        LightShow.setTeleop();
         Logger.log("Teleop has begun!");
         enabledRoutine();
     }
@@ -81,7 +83,7 @@ public class Robot extends IterativeRobot {
     }
     
     public void disabledPeriodic() {
-        //Do nothing
+        // Do nothing.
     }
     
     /**
@@ -110,7 +112,6 @@ public class Robot extends IterativeRobot {
         } catch (IOException exception) {
             Logger.log(exception);
         }
-
         return NetworkTable.getTable("SmartDashboard");
     }
     
