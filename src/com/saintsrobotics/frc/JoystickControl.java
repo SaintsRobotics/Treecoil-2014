@@ -43,37 +43,40 @@ public class JoystickControl implements RobotComponent {
     public static final XboxButton SHIFT_GEAR_DOWN_BUTTON = XboxButton.RIGHT_BUMPER;
     public static final XboxButton SHIFT_GEAR_UP_BUTTON = XboxButton.Y;
     
-    public static final XboxButton PICKUP_BUTTON = XboxButton.RIGHT_BUMPER;
-    public static final XboxButton RELEASE_PICKUP_BUTTON = XboxButton.LEFT_BUMPER;
+    public static final XboxButton PICKUP_UP_BUTTON = XboxButton.RIGHT_BUMPER;
+    public static final XboxButton PICKUP_DOWN_BUTTON = XboxButton.LEFT_BUMPER;
     public static final XboxButton SHOOT_WITH_RESET_BUTTON = XboxButton.A;
     public static final XboxButton SHOOT_WITHOUT_RESET_BUTTON = XboxButton.X;
     public static final XboxButton STOP_SHOOT_BUTTON = XboxButton.B;
+    
+    public static final XboxAxis TRIGGER_AXIS = XboxAxis.TRIGGERS;
     
     private ControlMode controlMode;
     
     private double arcadeThrottleValue = 0.0;
     private double arcadeTurnValue = 0.0;
+    private double pickupValue = 0.0;
     private boolean slowButton = false;
     private boolean winchButton = false;
-    private boolean raiseButton = false;
-    private boolean pickupButton = false;
-    private boolean releasePickupButton = false;
-    private boolean winchMomentButton;
-    private boolean winchStopButton;
+    private boolean pickupDownButton = false;
+    private boolean winchMomentButton = false;
+    private boolean winchStopButton = false;
+    private boolean pickupUpButton = false;
     
     public void robotDisable() {
-        
     }
 
     public void robotEnable() {
         arcadeThrottleValue = 0.0;
         arcadeTurnValue = 0.0;
+        pickupValue = 0.0;
         winchButton = false;
     }
     
     public void act() {
         arcadeThrottleValue = driveJoystick.getRawAxis(ARCADE_MOVE_JOYSTICK_AXIS.value);
         arcadeTurnValue = driveJoystick.getRawAxis(ARCADE_ROTATE_JOYSTICK_AXIS.value);
+        pickupValue = operatorJoystick.getRawAxis(TRIGGER_AXIS.value);
         
         slowButton = driveJoystick.getRawButton(SLOW_MODE_BUTTON.value);
         curveTurnValues();
@@ -86,12 +89,14 @@ public class JoystickControl implements RobotComponent {
             DriverStationComm.printMessage(DriverStationLCD.Line.kUser1,4,"Slow Mode: OFF");
         }
         
+        System.out.println("T1: " + operatorJoystick.getRawAxis(TRIGGER_AXIS.value));
+        
         winchButton = operatorJoystick.getRawButton(SHOOT_WITH_RESET_BUTTON.value);
         winchMomentButton = operatorJoystick.getRawButton(SHOOT_WITHOUT_RESET_BUTTON.value);
         winchStopButton = operatorJoystick.getRawButton(STOP_SHOOT_BUTTON.value);
         
-        releasePickupButton = operatorJoystick.getRawButton(RELEASE_PICKUP_BUTTON.value);
-        pickupButton = operatorJoystick.getRawButton(PICKUP_BUTTON.value);
+        pickupUpButton = operatorJoystick.getRawButton(PICKUP_UP_BUTTON.value);
+        pickupDownButton = operatorJoystick.getRawButton(PICKUP_DOWN_BUTTON.value);
     }
     
     private void deadZone() {
@@ -132,12 +137,16 @@ public class JoystickControl implements RobotComponent {
         return new double[]{arcadeThrottleValue,arcadeTurnValue};
     }
     
-    public boolean getPickupButton() {
-        return pickupButton;
+    public double getPickupValue() {
+        return pickupValue;
     }
     
-    public boolean getReleasePickupButton() {
-        return releasePickupButton;
+    public boolean getPickupUpValue() {
+        return pickupUpButton;
+    }
+    
+    public boolean getPickupDownValue() {
+        return pickupDownButton;
     }
     
     public boolean getSlowButton() {
