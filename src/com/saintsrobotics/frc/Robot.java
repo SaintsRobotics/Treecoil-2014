@@ -1,5 +1,6 @@
 package com.saintsrobotics.frc;
 
+import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import java.io.IOException;
@@ -40,6 +41,7 @@ public class Robot extends IterativeRobot {
     /** Called throughout auton. */
     public void autonomousPeriodic() {
         autonomousRoutine();
+        DriverStationComm.printMessage(DriverStationLCD.Line.kUser4,1,Double.toString(ultrasonic.getDistance()));
     }
     
     /** Called at beginning of teleop. */
@@ -52,6 +54,7 @@ public class Robot extends IterativeRobot {
     /** Called throughout teleop. */
     public void teleopPeriodic() {
         actionRoutine();
+        DriverStationComm.printMessage(DriverStationLCD.Line.kUser4,1,Double.toString(ultrasonic.getDistance()));
     }
     
     /** Called at beginning of disable phase. */

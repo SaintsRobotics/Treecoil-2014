@@ -10,17 +10,17 @@ public class Ultrasonic implements RobotComponent {
     // Port.
     private static final int ULTRASONIC_CHANNEL = 2;
     
-    private AnalogChannel ultrasonic;
+    private final AnalogChannel ultrasonic;
     private double measuredVoltage = 0.0;
     
-    public void robotDisable() {
-        ultrasonic.free();
-    }
-
-    public void robotEnable() {
+    public Ultrasonic() {
         ultrasonic = new AnalogChannel(ULTRASONIC_CHANNEL);
     }
-
+    
+    public void robotDisable() { }
+    
+    public void robotEnable() { }
+    
     public void robotAuton() {
         measuredVoltage = ultrasonic.getVoltage();
     }
@@ -31,6 +31,6 @@ public class Ultrasonic implements RobotComponent {
     
     /** @return Distance to target IN FEET. */
     public double getDistance() {
-        return (measuredVoltage/scalingFactor)*12;
+        return (measuredVoltage*scalingFactor)/12;
     }
 }
