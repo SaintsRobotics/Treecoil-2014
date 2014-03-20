@@ -31,6 +31,6 @@ public class Ultrasonic implements RobotComponent {
     
     /** @return Distance to target IN FEET. */
     public double getDistance() {
-        return (measuredVoltage*scalingFactor)/12;
+        return (measuredVoltage/9800)/12;
     }
 }

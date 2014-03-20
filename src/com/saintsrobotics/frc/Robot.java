@@ -41,8 +41,8 @@ public class Robot extends IterativeRobot {
     /** Called throughout auton. */
     public void autonomousPeriodic() {
         autonomousRoutine();
-        DriverStationComm.printMessage(DriverStationLCD.Line.kUser4,1,Double.toString(ultrasonic.getDistance()));
-    }
+        DriverStationComm.printMessage(DriverStationLCD.Line.kUser4,1,
+                Double.toString(Math.floor(ultrasonic.getDistance()*100.0)/100.0));    }
     
     /** Called at beginning of teleop. */
     public void teleopInit() {
@@ -54,7 +54,8 @@ public class Robot extends IterativeRobot {
     /** Called throughout teleop. */
     public void teleopPeriodic() {
         actionRoutine();
-        DriverStationComm.printMessage(DriverStationLCD.Line.kUser4,1,Double.toString(ultrasonic.getDistance()));
+        DriverStationComm.printMessage(DriverStationLCD.Line.kUser4,1,
+                Double.toString(Math.floor(ultrasonic.getDistance()*100.0)/100.0));
     }
     
     /** Called at beginning of disable phase. */
