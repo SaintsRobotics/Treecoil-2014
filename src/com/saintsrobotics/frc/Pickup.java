@@ -6,6 +6,7 @@
 package com.saintsrobotics.frc;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStationLCD;
 
 /**
  *
@@ -53,7 +54,6 @@ public class Pickup implements RobotComponent {
     }
     
     public void robotAuton() {
-        
     }
     
     public void act() {
@@ -64,11 +64,16 @@ public class Pickup implements RobotComponent {
         
         double pickupRetractSpd = 0;
         
-        if(controller.getPickupUpValue() && pickupUpSwitch.get())
-            pickupRetractSpd += 1.0;
         
         if(controller.getPickupDownValue() && pickupDownSwitch.get())
             pickupRetractSpd -= 1.0;
+        
+        
+        if(controller.getPickupUpValue() && pickupUpSwitch.get())
+        {
+            pickupRetractSpd += 1.0;
+            pickupRetractSpd *= .5;
+        }
         
         pickupRetractorMotor.motor.set(pickupRetractSpd);
     }

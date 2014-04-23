@@ -48,9 +48,9 @@ public class Shooter implements RobotComponent {
     }
     
     public void robotAuton() {
-        if (cycleCounts>=120&&cycleCounts<=130) {
+        if (cycleCounts>=140&&cycleCounts<=150) {
             autoShoot = true;
-        } else if (cycleCounts>130) {
+        } else if (cycleCounts>150) {
             autoShoot = false;
         }
         

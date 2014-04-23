@@ -42,6 +42,7 @@ public class JoystickControl implements RobotComponent {
     public static final XboxButton SLOW_MODE_BUTTON = XboxButton.LEFT_BUMPER;
     public static final XboxButton SHIFT_GEAR_DOWN_BUTTON = XboxButton.RIGHT_BUMPER;
     public static final XboxButton SHIFT_GEAR_UP_BUTTON = XboxButton.Y;
+    public static final XboxButton DRIVER_SHOOT_WITH_RESET_BUTTON = XboxButton.A;
     
     public static final XboxButton PICKUP_UP_BUTTON = XboxButton.RIGHT_BUMPER;
     public static final XboxButton PICKUP_DOWN_BUTTON = XboxButton.LEFT_BUMPER;
@@ -61,6 +62,7 @@ public class JoystickControl implements RobotComponent {
     private boolean pickupDownButton = false;
     private boolean winchMomentButton = false;
     private boolean winchStopButton = false;
+    private boolean driverWinchButton = false;
     private boolean pickupUpButton = false;
     
     public void robotDisable() {
@@ -89,11 +91,11 @@ public class JoystickControl implements RobotComponent {
             DriverStationComm.printMessage(DriverStationLCD.Line.kUser1,4,"Slow Mode: OFF");
         }
         
-        System.out.println("T1: " + operatorJoystick.getRawAxis(TRIGGER_AXIS.value));
         
         winchButton = operatorJoystick.getRawButton(SHOOT_WITH_RESET_BUTTON.value);
         winchMomentButton = operatorJoystick.getRawButton(SHOOT_WITHOUT_RESET_BUTTON.value);
         winchStopButton = operatorJoystick.getRawButton(STOP_SHOOT_BUTTON.value);
+        driverWinchButton = driveJoystick.getRawButton(DRIVER_SHOOT_WITH_RESET_BUTTON.value);
         
         pickupUpButton = operatorJoystick.getRawButton(PICKUP_UP_BUTTON.value);
         pickupDownButton = operatorJoystick.getRawButton(PICKUP_DOWN_BUTTON.value);
@@ -163,5 +165,9 @@ public class JoystickControl implements RobotComponent {
     
     public boolean getWinchStopButton() {
         return winchStopButton;
+    }
+    
+    public boolean getDriverWinchButton(){
+        return driverWinchButton;
     }
 }

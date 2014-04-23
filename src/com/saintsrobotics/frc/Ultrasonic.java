@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.AnalogChannel;
 public class Ultrasonic implements RobotComponent {
     
     // Volts per inch.
-    public static final double scalingFactor = 0.009765625;
+    public static final double scalingFactor = 0.1176;
     
     // Port.
     private static final int ULTRASONIC_CHANNEL = 2;
@@ -31,6 +31,11 @@ public class Ultrasonic implements RobotComponent {
     
     /** @return Distance to target IN FEET. */
     public double getDistance() {
-        return (measuredVoltage/9800)/12;
+        return measuredVoltage/scalingFactor;
+    }
+    
+    /** @return Voltage output from ultrasonic. */
+    public double getRaw() {
+        return measuredVoltage;
     }
 }

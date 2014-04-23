@@ -119,10 +119,10 @@ public class Drive implements RobotComponent {
 
     public void robotAuton() {
         double[] autonArcadeVals = new double[2];
-        if (cycleCounts>=0&&cycleCounts<=110) {
+        if (cycleCounts>=0&&cycleCounts<=130) {
             autonArcadeVals[0] = -0.30;
             autonArcadeVals[1] = 0.0;
-        } else if (cycleCounts>110) {
+        } else if (cycleCounts>130) {
             autonArcadeVals[0] = 0.0;
             autonArcadeVals[1] = 0.0;
         }

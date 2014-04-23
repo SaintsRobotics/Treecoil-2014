@@ -17,6 +17,8 @@ public class Robot extends IterativeRobot {
     
     private RobotComponent[] components;
     
+    private int autonCycles;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -36,13 +38,18 @@ public class Robot extends IterativeRobot {
         LightShow.setAuton();
         Logger.log("Autonomous has begun!");
         enabledRoutine();
+        autonCycles = 0;
     }
     
     /** Called throughout auton. */
     public void autonomousPeriodic() {
         autonomousRoutine();
-        DriverStationComm.printMessage(DriverStationLCD.Line.kUser4,1,
-                Double.toString(Math.floor(ultrasonic.getDistance()*100.0)/100.0));    }
+        printUltrasonic();
+        
+        DriverStationComm.printMessage(DriverStationLCD.Line.kUser5,1,
+                "Auton Cycle: " + autonCycles);
+        autonCycles++;
+    }
     
     /** Called at beginning of teleop. */
     public void teleopInit() {
@@ -54,8 +61,7 @@ public class Robot extends IterativeRobot {
     /** Called throughout teleop. */
     public void teleopPeriodic() {
         actionRoutine();
-        DriverStationComm.printMessage(DriverStationLCD.Line.kUser4,1,
-                Double.toString(Math.floor(ultrasonic.getDistance()*100.0)/100.0));
+        printUltrasonic();
     }
     
     /** Called at beginning of disable phase. */
@@ -74,7 +80,7 @@ public class Robot extends IterativeRobot {
     
     /** Called throughout test phase. */
     public void testPeriodic() { }
-    
+                
     /**
      * Setup Network Tables, and get the NetworkTable for the SmartDashboard.
      *
@@ -113,5 +119,10 @@ public class Robot extends IterativeRobot {
         for (int i=0;i<components.length;i++) {
             components[i].robotAuton();
         }
+    }
+    
+    private void printUltrasonic() {
+        DriverStationComm.printMessage(DriverStationLCD.Line.kUser3,1,
+                "Range: " + Double.toString(Math.floor(ultrasonic.getDistance()*100.0)/100.0));
     }
 }
