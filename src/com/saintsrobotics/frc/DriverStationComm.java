@@ -7,75 +7,74 @@ import edu.wpi.first.wpilibj.DriverStationLCD;
 
 /**
  * Allows the robot to communicate with the driver station.
- *
  * @author Saints Robotics
  */
 public class DriverStationComm {
-    
     private static final DriverStation driverStation;
     private static final DriverStationEnhancedIO enhancedIO;
     private static final DriverStationLCD LCD;
-    
+
     static {
         driverStation = DriverStation.getInstance();
         enhancedIO = driverStation.getEnhancedIO();
         LCD = DriverStationLCD.getInstance();
     }
-    
+
     private DriverStationComm() {
-        
     }
-    
+
     /**
      * Print a boolean message to the User Messages box.
      * @param line
      * @param startingColumn
-     * @param booleanMessage 
+     * @param booleanMessage
      */
-    public static void printMessage(DriverStationLCD.Line line,int startingColumn,
+    public static void printMessage(DriverStationLCD.Line line,
+            int startingColumn,
             boolean booleanMessage) {
         String message = (booleanMessage ? "True" : "False");
-        printMessage(line,startingColumn,message);
+        printMessage(line, startingColumn, message);
     }
-    
+
     /**
      * Print a message to the User Messages box.
-     *
      * @param line
      * @param startingColumn
      * @param message
      */
-    public static void printMessage(DriverStationLCD.Line line,int startingColumn,
+    public static void printMessage(DriverStationLCD.Line line,
+            int startingColumn,
             String message) {
         String shortenedMessage = shortenMessage(message);
-        LCD.println(line,startingColumn,shortenedMessage);
+        LCD.println(line, startingColumn, shortenedMessage);
         LCD.updateLCD();
     }
-    
+
     /**
      * Set the state of an LED on the IO board.
-     *
      * @param channel
      * @param on
      */
-    public static void setLED(int channel,boolean on) {
+    public static void setLED(int channel, boolean on) {
         try {
-            enhancedIO.setLED(channel,on);
-        } catch (EnhancedIOException e) {
+            enhancedIO.setLED(channel, on);
+        }
+        catch (EnhancedIOException e) {
             Logger.log(e);
         }
     }
-    
+
     /**
      * Shorten the message for the LCD.
-     *
      * @param message
      * @return
      */
     private static String shortenMessage(String message) {
-        if (message.length()>DriverStationLCD.kLineLength)
-            return message.substring(0,DriverStationLCD.kLineLength);
-        else
+        if (message.length() > DriverStationLCD.kLineLength) {
+            return message.substring(0, DriverStationLCD.kLineLength);
+        }
+        else {
             return message;
+        }
     }
 }

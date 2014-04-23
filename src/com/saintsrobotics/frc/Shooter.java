@@ -6,91 +6,100 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The shooter for the robot.
- *
  * @author Saints Robotics
  */
 public class Shooter implements RobotComponent {
-    
     private final int WINCH_RELAY_CHANNEL = 1;
     private final int WINCH_DIGITAL_SIDECAR_SLOT = 1;
     private final int WINCH_DIGITAL_CHANNEL = 1;
     private final Relay WINCH;
     private final DigitalInput shooterSwitch;
     private final JoystickControl controller;
-    
+
     private final static int STOP_MODE = 0;
     private final static int MOMENT_MODE = 1;
     private final static int RESET_MODE = 2;
-    
+
     private boolean lastSwitched;
     private int cycleCounts;
     private boolean autoShoot;
     private int shootMode;
-    
+
     public Shooter(JoystickControl controller) {
         this.controller = controller;
-        
+
         WINCH = new Relay(WINCH_RELAY_CHANNEL);
         WINCH.setDirection(Relay.Direction.kForward);
-        shooterSwitch = new DigitalInput(WINCH_DIGITAL_SIDECAR_SLOT,WINCH_DIGITAL_CHANNEL);
-        
+        shooterSwitch = new DigitalInput(WINCH_DIGITAL_SIDECAR_SLOT,
+                WINCH_DIGITAL_CHANNEL);
+
         cycleCounts = 0;
     }
-    
+
     public void robotDisable() {
         cycleCounts = 0;
     }
-    
+
     public void robotEnable() {
         cycleCounts = 0;
         lastSwitched = shooterSwitch.get();
-        SmartDashboard.putBoolean("Limit",lastSwitched);
+        SmartDashboard.putBoolean("Limit", lastSwitched);
     }
-    
+
     public void robotAuton() {
-        if (cycleCounts>=140&&cycleCounts<=150) {
+        if (cycleCounts >= 140 && cycleCounts <= 150) {
             autoShoot = true;
-        } else if (cycleCounts>150) {
+        }
+        else if (cycleCounts > 150) {
             autoShoot = false;
         }
-        
+
         cycleCounts++;
-        
+
         if (!shooterSwitch.get() && !lastSwitched) {
             WINCH.set(Relay.Value.kOff);
             LightShow.setShootStandby();
-        } else if (autoShoot) {
+        }
+        else if (autoShoot) {
             WINCH.set(Relay.Value.kOn);
             LightShow.setShoot();
         }
-        
+
         lastSwitched = !shooterSwitch.get();
         report();
     }
-    
+
     public void act() {
-        if (controller.getWinchButton())
+        if (controller.getWinchButton()) {
             shootMode = RESET_MODE;
-        else if (controller.getWinchMomentButton())
+        }
+        else if (controller.getWinchMomentButton()) {
             shootMode = MOMENT_MODE;
-        else if (controller.getWinchStopButton())
+        }
+        else if (controller.getWinchStopButton()) {
             shootMode = STOP_MODE;
-        
-        if (shootMode==RESET_MODE) {
+        }
+
+        if (shootMode == RESET_MODE) {
             if (!shooterSwitch.get() && !lastSwitched) {
                 WINCH.set(Relay.Value.kOff);
-            } else if (controller.getWinchButton()) {
+            }
+            else if (controller.getWinchButton()) {
                 WINCH.set(Relay.Value.kOn);
             }
-            
+
             lastSwitched = !shooterSwitch.get();
-            SmartDashboard.putBoolean("Limit",lastSwitched);
-        } else if (shootMode==MOMENT_MODE) {
-            if (controller.getWinchMomentButton())
+            SmartDashboard.putBoolean("Limit", lastSwitched);
+        }
+        else if (shootMode == MOMENT_MODE) {
+            if (controller.getWinchMomentButton()) {
                 WINCH.set(Relay.Value.kOn);
-            else
+            }
+            else {
                 WINCH.set(Relay.Value.kOff);
-        } else if (shootMode==STOP_MODE) {
+            }
+        }
+        else if (shootMode == STOP_MODE) {
             WINCH.set(Relay.Value.kOff);
         }
         report();
