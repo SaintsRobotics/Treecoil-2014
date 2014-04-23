@@ -26,9 +26,8 @@ public class Robot extends IterativeRobot {
     private Pickup pickup;
 
     private NetworkTable networkTable;
-
     private RobotComponent[] components;
-
+    
     private int autonCycles;
 
     /**
@@ -89,7 +88,7 @@ public class Robot extends IterativeRobot {
      */
     public void disabledInit() {
         LightShow.setDisabled();
-        Logger.log("The robot has been disabled :(");
+        Logger.log("The robot has been disabled.");
         disabledRoutine();
     }
 
