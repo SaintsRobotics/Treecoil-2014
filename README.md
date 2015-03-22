@@ -1,4 +1,4 @@
-FRC-2014
+Treecoil - 2014
 ========
 
-The code for the 2014 FRC competition, Aerial Assist.
+Treecoil's code for the 2014 FRC competition, Aerial Assist.
